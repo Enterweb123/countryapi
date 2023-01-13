@@ -4,6 +4,7 @@ const body = document.querySelector("body");
 // container one
 const container1 = document.createElement('div')
       container1.classList.add("container");
+      container1.setAttribute("id","top")
 
 const h1tag = document.createElement("h1");
       h1tag.innerHTML=`where in the world?`;
@@ -105,7 +106,23 @@ body.appendChild(container3) ;
 // container 4
 const countryModalDiv = document.createElement("div");
 countryModalDiv.classList.add("countryModal","show");
+
+const backtoTop = document.createElement("button");
+backtoTop.innerHTML="TOP";
+
 body.appendChild(countryModalDiv);
+backtoTop.classList.add("backtoTop");
+backtoTop.addEventListener("click",()=>{
+    topFunction();
+})
+
+function topFunction() {
+    document.body.scrollTop = 0; // For Chrome, Safari and Opera
+    document.documentElement.scrollTop = 0; // For IE and Firefox
+}
+
+
+body.append(backtoTop);
 
 
 
@@ -120,7 +137,7 @@ const region = document.querySelectorAll('.region');
 
 // fetch data
 async function getCountry() {
-    const url = await fetch('https://restcountries.com/v2/all');
+    const url = await fetch('https://restcountries.com/v3/all');
     const res = await url.json();
 
     // console.log(res);
@@ -138,15 +155,15 @@ function showcountrys(data) {
     country.classList.add('country');
 
     country.innerHTML = ` <div class="country_img">
-    <h5 class="countryName">${data.name}</h5>
+    <h5 class="countryName">${data.name.common}</h5>
 
-   <img src=${data.flag} alt="img">
+   <img src=${data.flags[0]} alt="img">
    </div> 
    <br>
 
   <div class="country-info">
   <p><strong>Capital:</strong> <span> ${data.capital} </span></p>
-  <p><strong>Country Code:</strong> ${data.alpha2Code}  ${data.alpha3Code}</p>
+  <p><strong>Country Code:</strong> ${data.cca2}  ${data.ccn3}</p>
   <p><strong>Lat,Long:</strong> ${data.latlng[0]},${data.latlng[1]}</p>
   <p class="regionName"><strong>Region:</strong> ${data.region}</p>
 </div>`;
@@ -212,6 +229,7 @@ darkmodeButton.addEventListener('click', (e)=>{
 
 // back
 const back = document.querySelector(".back");
+
 const countryModal = document.querySelector(".countryModal");
 
 back.addEventListener("click", ()=>{
@@ -225,24 +243,25 @@ function showcountryDetails(data){
 
     <div class="modal">
       <div class="leftModal">
-      <img src=${data.flag} alt="img">
+      <img src=${data.flags[0]} alt="img">
       </div>
       <div class="rightModal">
-        <h1>${data.name}</h1>
-
+        <h1>${data.name.common}</h1>
         <div class="modelinfo">
           <div class="innerleft inner">
-            <p><strong>Native Name:</strong> ${data.nativeName}</p>
+            <p><strong>Native Name:</strong> ${data.name.official}</p>
             <p><strong>Population:</strong> ${data.population}</p>
             <p><strong>Region:</strong> ${data.region}</p>
             <p><strong>Sub Region:</strong> ${data.subregion}</p>
+
           </div>
 
           <div class="innerRight inner">
           <p><strong>Capital:</strong> ${data.capital}</p>
-          <p><strong>Top level domain:</strong> ${data.topLevelDomain.map( elem => elem)}</p>
-          <p><strong>currency:</strong> ${data.currencies.map(e=> e.name)}</p>
-          <p><strong>Language:</strong> ${data.languages.map(lan=>lan.name)}</p>
+          <p><strong>Language:</strong> ${Object.keys(data.languages)[0]}</p>
+          <p><strong>Time-Zone:</strong> ${data.timezones[0]}</p>
+          <p><strong>currencies:</strong> ${Object.keys(data.currencies)[0]}</p>
+
           </div>
         </div>
       </div>
@@ -253,3 +272,4 @@ function showcountryDetails(data){
               countryModal.classList.toggle("show")
           })
 }
+
