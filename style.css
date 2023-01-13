@@ -11,7 +11,7 @@
     min-height: 100vh;
     --bgcolor:rgb(245, 245, 245);
     --fontcolor:rgb(34, 34, 34);
-    
+    --titeleColor:rgb(223, 223, 223);
   }
 
   .dark{
@@ -21,6 +21,7 @@
     color: var(--fontcolor) !important;
 
     --countrybgColor:rgb(25, 37, 46);
+    --titeleColor:rgb(25, 37, 46);
   }
 
 
@@ -154,9 +155,16 @@
   min-height:350px;
   width:300px;
   box-shadow: 0 0 5px rgb(116, 116, 116);
-  border-radius: 10px;
+  border-radius: 5px;
 
   background-color: var(--countrybgColor);
+}
+
+span{
+  background-color: green;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
 }
 
 .country_img{
@@ -260,6 +268,11 @@ padding: 30px;
   display: none;
 }
 
+.countryName{
+  padding: 7px;
+  background-color:var(--titeleColor);
+  color: var(--fontcolor);
+}
 
 @media only screen and (max-width:600px) {
   .container2{

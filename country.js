@@ -133,18 +133,22 @@ async function getCountry() {
 getCountry()
 
 function showcountrys(data) {
+    console.log(data);
     const country = document.createElement('div');
     country.classList.add('country');
 
     country.innerHTML = ` <div class="country_img">
+    <h5 class="countryName">${data.name}</h5>
+
    <img src=${data.flag} alt="img">
-   </div>
+   </div> 
+   <br>
 
   <div class="country-info">
-  <h5 class="countryName">${data.name}</h5>
-  <p><strong>Population:</strong> ${data.population}</p>
+  <p><strong>Capital:</strong> <span> ${data.capital} </span></p>
+  <p><strong>Country Code:</strong> ${data.alpha2Code}  ${data.alpha3Code}</p>
+  <p><strong>Lat,Long:</strong> ${data.latlng[0]},${data.latlng[1]}</p>
   <p class="regionName"><strong>Region:</strong> ${data.region}</p>
-  <p><strong>Capital:</strong> ${data.capital}</p>
 </div>`;
 
     countryElem.appendChild(country)
@@ -164,7 +168,7 @@ const regionName = document.getElementsByClassName('regionName');
 
 
 region.forEach( element =>{
-    console.log(element.innerText);
+    // console.log(element.innerText);
 
     element.addEventListener("click", ()=>{
         Array.from(regionName).forEach(elem => {
